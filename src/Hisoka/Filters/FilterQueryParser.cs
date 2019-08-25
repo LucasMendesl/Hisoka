@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Hisoka
 {
-    class FilterQueryParser<T>
+    class FilterQueryParser<T> : IQueryParser<T>
         where T : class
     {
         private readonly Filter filter;
