@@ -2,7 +2,7 @@
 using System;
 using Shouldly;
 
-namespace Hisoka.Tests
+namespace Hisoka.Tests.Filters
 {
     public class FilterTests
     {
