@@ -7,17 +7,8 @@
     <Title>Hisoka</Title>
     <PackageVersion>1.0.0-alpha</PackageVersion>
     <Authors>Lucas Mendes Loureiro</Authors>
-    <Description>Hisoka is a framework agnostic tool to execute dynamic paginating, filtering and sorting with IQueryable types</Description>
-    <Copyright>Copyright © 2019 Lucas Mendes Loureiro</Copyright>
-    <PackageProjectUrl></PackageProjectUrl>
-    <RepositoryUrl></RepositoryUrl>
-    <PackageLicenseUrl></PackageLicenseUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0</Version>
-    <AssemblyVersion>1.0.0.1</AssemblyVersion>
-    <FileVersion>1.0.0.1</FileVersion>
-    <PackageTags>IQueryable dynamic query url querystring parameters queryfilter http</PackageTags>    <Authors>Lucas Mendes Loureiro</Authors>
     <Description>Hisoka is a framework agnostic tool to execute dynamic paginating, filtering and sorting with IQueryable types</Description>
     <Copyright>Copyright © 2019 Lucas Mendes Loureiro</Copyright>
     <PackageProjectUrl>https://github.com/LucasMendesl/Hisoka</PackageProjectUrl>

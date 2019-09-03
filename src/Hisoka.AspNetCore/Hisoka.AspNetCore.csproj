@@ -1,7 +1,36 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Hisoka.AspNetCore</PackageId>
+    <Product>Hisoka.AspNetCore</Product>
+    <Title>Hisoka.AspNetCore</Title>
+    <PackageVersion>1.0.0-alpha</PackageVersion>
+    <Authors>Lucas Mendes Loureiro</Authors>
+    <Description>Provides feature to integrate Hisoka in AspNet Core applications</Description>
+    <Copyright>Copyright © 2019 Lucas Mendes Loureiro</Copyright>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <PackageTags>IQueryable dynamic query url querystring parameters queryfilter http</PackageTags>
+    <Authors>Lucas Mendes Loureiro</Authors>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <PackageTags>IQueryable dynamic query url querystring parameters queryfilter http asp net core</PackageTags>
+    <Authors>Lucas Mendes Loureiro</Authors>
+    <PackageProjectUrl>https://github.com/LucasMendesl/Hisoka</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/LucasMendesl/Hisoka</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/LucasMendesl/Hisoka/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://github.com/LucasMendesl/Hisoka/blob/master/icon.jpeg</PackageIconUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hisoka\Hisoka.csproj" />
+  </ItemGroup>
 
 </Project>
