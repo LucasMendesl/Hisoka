@@ -2,10 +2,72 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Hisoka</PackageId>
+    <Product>Hisoka</Product>
+    <Title>Hisoka</Title>
+    <PackageVersion>1.0.0-alpha</PackageVersion>
+    <Authors>Lucas Mendes Loureiro</Authors>
+    <Description>Hisoka is a framework agnostic tool to execute dynamic paginating, filtering and sorting with IQueryable types</Description>
+    <Copyright>Copyright © 2019 Lucas Mendes Loureiro</Copyright>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl></RepositoryUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <PackageTags>IQueryable dynamic query url querystring parameters queryfilter http</PackageTags>    <Authors>Lucas Mendes Loureiro</Authors>
+    <Description>Hisoka is a framework agnostic tool to execute dynamic paginating, filtering and sorting with IQueryable types</Description>
+    <Copyright>Copyright © 2019 Lucas Mendes Loureiro</Copyright>
+    <PackageProjectUrl>https://github.com/LucasMendesl/Hisoka</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/LucasMendesl/Hisoka</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/LucasMendesl/Hisoka/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <PackageTags>IQueryable dynamic query url querystring parameters queryfilter http</PackageTags>
+    <PackageIconUrl>https://github.com/LucasMendesl/Hisoka/blob/master/icon.jpeg</PackageIconUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.15" />
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugType>full</DebugType>
+    <IncludeSource>True</IncludeSource>
+    <IncludeSymbols>True</IncludeSymbols>
+    <PathMap>$(MSBuildProjectDirectory)=/</PathMap>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugType>full</DebugType>
+    <IncludeSource>True</IncludeSource>
+    <IncludeSymbols>True</IncludeSymbols>
+    <PathMap>$(MSBuildProjectDirectory)=/</PathMap>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Lucas\Projetos\DotNet\Hisoka\src\Hisoka\Hisoka\Hisoka.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Lucas\Projetos\DotNet\Hisoka\src\Hisoka\Hisoka\Hisoka.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="System.Collections.Concurrent" Version="4.3.0" />
+    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
+    <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
+    <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
   </ItemGroup>
   
+  <ItemGroup>
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.15" />
+  </ItemGroup>   
 </Project>
