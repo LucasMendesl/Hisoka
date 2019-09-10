@@ -92,7 +92,7 @@ namespace Hisoka
                 if (index == -1)
                     continue;
 
-                keyVault = new KeyValuePair<string, string>(Regex.Replace(data.Substring(0, index), @"[^a-zA-Z]", ""), data.Substring(data.IndexOf('=') + 1));
+                keyVault = new KeyValuePair<string, string>(data.Substring(0, index), data.Substring(data.IndexOf('=') + 1));
             }
 
             if (string.IsNullOrEmpty(keyVault.Key) || string.IsNullOrEmpty(keyVault.Value))
