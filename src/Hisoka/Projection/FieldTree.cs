@@ -41,6 +41,8 @@ namespace Hisoka
             return Type == FieldType.Root;
         }
 
+        public bool HasChilds() => Childrens.Any();
+
         public void AddNodes(IEnumerable<FieldTree> fields)
         {
             _childFields.AddRange(fields);

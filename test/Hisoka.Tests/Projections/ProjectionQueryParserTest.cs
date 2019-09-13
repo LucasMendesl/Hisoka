@@ -46,6 +46,14 @@ namespace Hisoka.Tests.Projections
             Assert.Equal(string.Empty, parsedResultempty);
             Assert.Equal(string.Empty, parsedResultNull);
         }
+
+        [Fact]
+        public void Should_Wrap_In_New_Keyword_When_QueryString_Parameter_Is_Single_Object()
+        {
+            string parsedResult = fieldParser.ParseValues(new[] { "Address(Street", "Number", "District)" });
+
+            Assert.Equal("new ( new (Address.Street, Address.Number, Address.District) AS Address)", parsedResult);
+        }
     }
 }
 

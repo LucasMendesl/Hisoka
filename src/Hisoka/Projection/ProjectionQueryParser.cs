@@ -26,9 +26,9 @@ namespace Hisoka
             var root = FieldTree.CreateRootNode();
             var tokens = Tokenize(rawText);
             var fieldTree = CreateFieldTree(tokens, root);
-
+            
             if (fieldTree.Count == 1)
-                return fieldTree[0].ToString();
+                return fieldTree[0].HasChilds() ? $"new ( {fieldTree[0].ToString()})" : fieldTree[0].ToString();
 
             return $"new ({string.Join(", ", fieldTree.Select(s => s.ToString()))})";
         }

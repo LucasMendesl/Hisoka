@@ -5,7 +5,7 @@
     <PackageId>Hisoka</PackageId>
     <Product>Hisoka</Product>
     <Title>Hisoka</Title>
-    <PackageVersion>1.0.2-alpha</PackageVersion>
+    <PackageVersion>1.0.3-alpha</PackageVersion>
     <Authors>Lucas Mendes Loureiro</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -16,9 +16,9 @@
     <PackageLicenseUrl>https://github.com/LucasMendesl/Hisoka/blob/master/LICENSE</PackageLicenseUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.2-alpha</Version>
-    <AssemblyVersion>1.0.0.2</AssemblyVersion>
-    <FileVersion>1.0.0.2</FileVersion>
+    <Version>1.0.3-alpha</Version>
+    <AssemblyVersion>1.0.0.3</AssemblyVersion>
+    <FileVersion>1.0.0.3</FileVersion>
     <PackageTags>IQueryable dynamic query url querystring parameters queryfilter http</PackageTags>
     <PackageIconUrl>https://github.com/LucasMendesl/Hisoka/blob/master/icon.jpeg</PackageIconUrl>
     <RepositoryType>git</RepositoryType>
