@@ -75,7 +75,7 @@ namespace Hisoka
                 return filterType;
             }
 
-            throw new InvalidOperationException($"'{queryStringFilter}' does not contain a valid {nameof(FilterType)}.");
+            throw new HisokaException($"'{queryStringFilter}' does not contain a valid {nameof(FilterType)}.");
         }
 
         static KeyValuePair<string, string> GetQueryParams(string data)
@@ -96,7 +96,7 @@ namespace Hisoka
             }
 
             if (string.IsNullOrEmpty(keyVault.Key) || string.IsNullOrEmpty(keyVault.Value))
-                throw new InvalidOperationException($"'{data}' is missing an operand.");
+                throw new HisokaException($"'{data}' is missing an operand.");
 
             return keyVault;
         }
