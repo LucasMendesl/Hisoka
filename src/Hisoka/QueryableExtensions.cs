@@ -1,4 +1,5 @@
-﻿using Hisoka;
+﻿using System.Threading;
+using Hisoka;
 using System.Reflection;
 using System.Collections;
 using System.Threading.Tasks;
@@ -118,8 +119,11 @@ namespace System.Linq
         {
             var count = source.Count();
 
-            var pageNum = GetPageNum(count, paginate.Limit, paginate.Offset);
-            var items = source.Skip((pageNum - 1) * paginate.Limit)
+            var pageNumCount = GetPageNum(count, paginate.Limit, paginate.Offset);
+            var pageNum = pageNumCount > 0 ? pageNumCount - 1 : pageNumCount;
+
+
+            var items = source.Skip(pageNum * paginate.Limit)
                               .Take(paginate.Limit);
 
             return new PagedList<T>(items, pageNum, paginate.Limit, count);
@@ -132,18 +136,21 @@ namespace System.Linq
         /// <param name="source">fonte de dados</param>
         /// <param name="countAsync">callback para a execução de uma contagem asincrona</param>
         /// <param name="paginate">retorna a lista paginada</param>
+        /// <param name="cancellationToken">token de cancelamento da task</param>
         /// <returns></returns>
         public static async Task<IPagedList<T>> ToPagedListAsync<T>(
             this IQueryable<T> source,
             Func<IQueryable<T>, Task<int>> countAsync,
-            Paginate paginate
+            Paginate paginate,
+            CancellationToken cancellationToken = default(CancellationToken)
             ) where T : class
         {
             var count = await countAsync(source);
-            var pageNum = GetPageNum(count, paginate.Limit, paginate.Offset);
+            var pageNumCount = GetPageNum(count, paginate.Limit, paginate.Offset);
+            var pageNum = pageNumCount > 0 ? pageNumCount - 1 : pageNumCount;
 
-            var page = source.Skip((pageNum - 1) * paginate.Limit).Take(paginate.Limit);
-            var items = await page.ToListAsync<T>();
+            var page = source.Skip(pageNum * paginate.Limit).Take(paginate.Limit);
+            var items = await page.ToListAsync<T>(cancellationToken);
 
             return new PagedList<T>(items, pageNum, paginate.Limit, count);
         }

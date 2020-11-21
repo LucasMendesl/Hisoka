@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Threading;
+using System.Collections;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
@@ -25,10 +26,11 @@ namespace System.Linq
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="source">fonte de dados</param>
+        /// <param name="cancellationToken">token de cancelamento</param>
         /// <returns>retorna uma lista</returns>
-        public static Task<List<T>> ToListAsync<T>(this IEnumerable source)
+        public static Task<List<T>> ToListAsync<T>(this IEnumerable source, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return Task.Run(() => source.ToList<T>());
+            return Task.Run(() => source.ToList<T>(), cancellationToken);
         }
     }
 }
