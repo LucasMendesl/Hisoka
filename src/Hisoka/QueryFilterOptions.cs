@@ -1,6 +1,6 @@
 ﻿namespace Hisoka
 {
-    internal static class QueryFilterOptions
+    public static class QueryFilterOptions
     {
         public static int MaxPageSize { get; set; }
         public static int DefaultPageSize { get; set; }

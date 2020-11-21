@@ -23,11 +23,6 @@ namespace Hisoka.AspNetCore
             mvcBuilder.AddMvcOptions(opt =>
             {
                 opt.ModelBinderProviders.Insert(0, new HisokaModelBinderProvider());
-            })
-            .AddJsonOptions(opt => {
-                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-                opt.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-                opt.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
             });
 
             return mvcBuilder;
