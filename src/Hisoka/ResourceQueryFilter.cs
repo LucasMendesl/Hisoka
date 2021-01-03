@@ -99,6 +99,44 @@ namespace Hisoka
             _fields.Add(field);
         }
 
+        /// <summary>
+        /// Método responsável por remover os items da lista de filtros
+        /// </summary>
+        public void ClearFilter() 
+        {
+            _filters.Clear();
+        }
+
+        /// <summary>
+        /// Método responsável por remover um item da coleção de filtros
+        /// </summary>
+        /// <param name="filter"></param>
+        public void RemoveFilter(Filter filter) 
+        {
+            if (filter == null) throw new ArgumentNullException("Parameter filter is mandatory!");
+
+            _filters.Remove(filter);
+        }
+
+        /// <summary>
+        /// Método responsável por remover os items da lista de ordenação
+        /// </summary>
+        public void ClearSorter() 
+        {
+            _sorts.Clear();
+        }
+
+        /// <summary>
+        /// Método responsável por remover um item da lista de ordenação
+        /// </summary>
+        /// <param name="sort"></param>
+        public void RemoveSorter(Sort sort) 
+        {
+            if (sort == null) throw new ArgumentNullException("Parameter sort is mandatory!");
+
+            _sorts.Remove(sort);
+        }
+
         private static List<T> GetBy<T>(string query)
         {
             if (string.IsNullOrWhiteSpace(query)) return new List<T>();

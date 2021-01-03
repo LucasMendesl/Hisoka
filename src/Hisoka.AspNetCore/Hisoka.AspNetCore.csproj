@@ -5,13 +5,13 @@
     <PackageId>Hisoka.AspNetCore</PackageId>
     <Product>Hisoka.AspNetCore</Product>
     <Title>Hisoka.AspNetCore</Title>
-    <PackageVersion>1.0.7-alpha</PackageVersion>
+    <PackageVersion>1.0.8-alpha</PackageVersion>
     <Authors>Lucas Mendes Loureiro</Authors>
     <Description>Provides feature to integrate Hisoka in AspNet Core applications</Description>
     <Copyright>Copyright © 2019 Lucas Mendes Loureiro</Copyright>
-    <Version>1.0.7-alpha</Version>
-    <AssemblyVersion>1.0.0.7</AssemblyVersion>
-    <FileVersion>1.0.0.7</FileVersion>
+    <Version>1.0.8-alpha</Version>
+    <AssemblyVersion>1.0.0.8</AssemblyVersion>
+    <FileVersion>1.0.0.8</FileVersion>
     <PackageTags>IQueryable dynamic query url querystring parameters queryfilter http asp net core</PackageTags>
     <PackageProjectUrl>https://github.com/LucasMendesl/Hisoka</PackageProjectUrl>
     <RepositoryUrl>https://github.com/LucasMendesl/Hisoka</RepositoryUrl>
