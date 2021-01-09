@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
 using System.ComponentModel;
 using System.Linq.Dynamic.Core;
 using System.Collections.Generic;
+using Hisoka.Configuration;
 
 namespace Hisoka
 {
@@ -43,9 +43,11 @@ namespace Hisoka
         }
 
         private Type GetTargetType(Filter filter)
-        {
-            var propType = typeof(TEntity);
+        { 
+            var propType = typeof(TEntity);        
             var propArray = filter.PropertyName.Split('.');
+
+            HisokaPropertyMetadata propertyMetadata = null;
 
             foreach (var name in propArray)
             {
@@ -55,14 +57,16 @@ namespace Hisoka
                         propType = propType.GenericTypeArguments[0];
                     else if (propType.IsArray)
                         propType = propType.GetElementType();
+
+                    propertyMetadata = HisokaConfiguration.GetPropertyMetadataFromCache(propType, name);
                 }
 
-                var p = propType.GetProperty(name, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+                propertyMetadata = HisokaConfiguration.GetPropertyMetadataFromCache(propType, name);
 
-                if (null == p)
+                if (null == propertyMetadata)
                     throw new HisokaException(string.Format("Property '{0}' is not a member of the target entity.", name));
 
-                propType = p.PropertyType;
+                propType = propertyMetadata.CurrentProperty.PropertyType;
             }
 
             return propType;

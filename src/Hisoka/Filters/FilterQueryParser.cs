@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Hisoka.Configuration;
 
 namespace Hisoka
 {
@@ -22,16 +23,31 @@ namespace Hisoka
 
             var propArray = filter.PropertyName.Split('.');
             var op = filter.Operator;
+            
+            var metadata = HisokaConfiguration.GetPropertyMetadataFromCache(typeof(T), propArray[0]);
+            var property = metadata.CurrentProperty;
 
             try
             {
                 if (propArray[0].IsEnumerable<T>())
                 {
-                    if (propArray.Length != 2)
+                    if (propArray.Length != 2) 
+                    {
                         throw new HisokaException("Unsupporter array argument lenght.");
+                    }
 
-                    propName = propArray[1];
-                    result = string.Format(Consts.ArrayPredicateFormat, propArray[0], formater.FormatPredicate(propName, op, values));
+                    if (!property.PropertyType.IsGenericType) 
+                    {
+                        propName = propArray[1];
+                    }
+                    else 
+                    {
+                        var argument = property.PropertyType.GenericTypeArguments[0];
+                        var cacheValue = HisokaConfiguration.GetPropertyMetadataFromCache(argument, propArray[1]); 
+                        propName = cacheValue.CurrentProperty.Name;
+                    }
+
+                    result = string.Format(Consts.ArrayPredicateFormat, property.Name, formater.FormatPredicate(propName, op, values));
                 }
                 else
                 {

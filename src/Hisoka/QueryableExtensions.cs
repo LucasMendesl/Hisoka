@@ -40,7 +40,8 @@ namespace System.Linq
         /// <param name="source">fonte de dados</param>
         /// <param name="fields">campos a serem selecionados</param>
         /// <returns>retorna a fonte de dados com apenas os campos selecionados</returns>
-        public static IQueryable Project(this IQueryable source, IEnumerable<string> fields)
+        public static IQueryable Project<T>(this IQueryable source, IEnumerable<string> fields)
+            where T : class
         {
             if (source == null) { throw new ArgumentException($"{ nameof(source) }"); }
 
@@ -50,7 +51,7 @@ namespace System.Linq
             try
             {
                 var config = new ParsingConfig { AllowNewToEvaluateAnyType = true };
-                var projection = new ProjectionQueryParser();
+                var projection = new ProjectionQueryParser<T>();
 
                 return source.Select(config, projection.ParseValues(fields.ToArray()));
             }
@@ -104,7 +105,7 @@ namespace System.Linq
         {
             return source.Filter(query.Filters)
                          .Sort(query.Sorts)
-                         .Project(query.Fields.ToArray());
+                         .Project<T>(query.Fields.ToArray());
         }
 
         /// <summary>
@@ -159,21 +160,6 @@ namespace System.Linq
         {
             int totalPages = (count + pageSize - 1) / pageSize;
             return pageNum > totalPages ? totalPages : pageNum;
-        }
-
-        internal static bool IsEnumerable<TEntity>(this string property)
-        {
-            var prop = typeof(TEntity).GetProperty(property, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
-
-            if (prop == null)
-                throw new HisokaException(string.Format("Property '{0}' is not a member of the taget entity.", property));
-
-            return prop.PropertyType.IsEnumerableType();
-        }
-
-        internal static bool IsEnumerableType(this Type type)
-        {
-            return type != typeof(string) && (typeof(IEnumerable).IsAssignableFrom(type));
         }
     }
 }

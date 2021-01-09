@@ -1,4 +1,5 @@
 ﻿using System;
+using Hisoka.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hisoka.AspNetCore
@@ -18,13 +19,10 @@ namespace Hisoka.AspNetCore
         {
             var option = new HisokaOptions();
             options?.Invoke(option);
-            QueryFilterOptions.ApplyConfig(option);
 
-            mvcBuilder.AddMvcOptions(opt =>
-            {
-                opt.ModelBinderProviders.Insert(0, new HisokaModelBinderProvider());
-            });
-
+            HisokaConfiguration.ApplyConfig(option);
+            mvcBuilder.AddMvcOptions(opt => opt.ModelBinderProviders.Insert(0, new HisokaModelBinderProvider()));
+            
             return mvcBuilder;
         }
     }

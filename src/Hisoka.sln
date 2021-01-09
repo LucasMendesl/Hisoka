@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hisoka.Tests", "..\test\His
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hisoka.AspNetCore", "Hisoka.AspNetCore\Hisoka.AspNetCore.csproj", "{F7829079-0E22-4641-BE4A-4A61F2EB81F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HisokaExample", "..\examples\HisokaExample\HisokaExample.csproj", "{57273F2D-A1BE-4C9C-94F5-F365E45E0F95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F7829079-0E22-4641-BE4A-4A61F2EB81F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7829079-0E22-4641-BE4A-4A61F2EB81F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7829079-0E22-4641-BE4A-4A61F2EB81F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57273F2D-A1BE-4C9C-94F5-F365E45E0F95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57273F2D-A1BE-4C9C-94F5-F365E45E0F95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57273F2D-A1BE-4C9C-94F5-F365E45E0F95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57273F2D-A1BE-4C9C-94F5-F365E45E0F95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

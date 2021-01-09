@@ -1,11 +1,13 @@
-﻿namespace Hisoka
+﻿using Hisoka.Configuration;
+
+namespace Hisoka
 {
 
     /// <summary>
     /// Classe que representa as configurações do hisoka
     /// </summary>
     public class HisokaOptions
-    {
+    {        
         private int _defaultPageSize = 15;
         private int _maxPageSize = 25;
 
@@ -52,5 +54,13 @@
         /// Recupera ou define o nome do campo querystring para o tamanho da página
         /// </summary>
         public string PageSizeQueryAlias { get; set; } = "limit";
+
+        public void RegisterConfiguration<TEntity>(IHisokaTypeConfiguration<TEntity> config) 
+        {
+            var builder = new HisokaTypeConfigurationBuilder<TEntity>();
+			config.Configure(builder);
+
+            HisokaConfiguration.StorePropertyMetadataInCache(typeof(TEntity), builder.HisokaPropertyMap);
+        }
     }
 }

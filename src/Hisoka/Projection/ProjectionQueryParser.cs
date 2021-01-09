@@ -1,10 +1,13 @@
 ﻿using System.Text;
 using System.Linq;
+using Hisoka.Configuration;
 using System.Collections.Generic;
+
 
 namespace Hisoka
 {
-    class ProjectionQueryParser : IQueryParser<string>
+    class ProjectionQueryParser<T> : IQueryParser<T>
+        where T : class
     {
         private readonly IDictionary<string, TokenType> _tokens = new Dictionary<string, TokenType>
         {
@@ -94,8 +97,32 @@ namespace Hisoka
         {
             if (builder.Length == 0)
                 return;
+            
+            var originalToken = new Token { Value = builder.ToString().Trim().ToLowerInvariant() };
 
-            queue.Enqueue(new Token { Value = builder.ToString().Trim() });
+            if (originalToken.Type != TokenType.Property) 
+            {
+                queue.Enqueue(originalToken);
+                return;
+            }
+
+            var cacheKey = typeof(T);            
+            var property = HisokaConfiguration.GetPropertyMetadataFromCache(cacheKey, originalToken.Value);
+
+            if (property == null) 
+            {
+                var cache = HisokaConfiguration.GetCache();
+                foreach (var item in cache) 
+                {
+                    if (item.Value.TryGetValue(originalToken.Value, out var metadata)) 
+                    {
+                        property = metadata;
+                        break;
+                    }
+                }
+            }
+
+            queue.Enqueue(new Token { Value = property.CurrentProperty.Name });
             builder.Clear();
         }
     }

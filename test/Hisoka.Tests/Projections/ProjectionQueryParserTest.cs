@@ -1,14 +1,15 @@
-﻿using Xunit;
+﻿using Hisoka.Tests.Models;
+using Xunit;
 
 namespace Hisoka.Tests.Projections
 {
     public class ProjectionQueryParserTest
     {
-        private readonly ProjectionQueryParser fieldParser;
+        private readonly ProjectionQueryParser<User> fieldParser;
 
         public ProjectionQueryParserTest()
         {
-            fieldParser = new ProjectionQueryParser();
+            fieldParser = new ProjectionQueryParser<User>();
         }
 
         [Fact]

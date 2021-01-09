@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Specialized;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Hisoka.Configuration;
 
 namespace Hisoka.AspNetCore
 {
@@ -26,8 +27,8 @@ namespace Hisoka.AspNetCore
 
             var queryFilter = new ResourceQueryFilter(
                                               GetFilter(nameValueCollection),
-                                              nameValueCollection[QueryFilterOptions.OrderByQueryAlias],
-                                              nameValueCollection[QueryFilterOptions.SelectFieldsQueryAlias],
+                                              nameValueCollection[HisokaConfiguration.OrderByQueryAlias],
+                                              nameValueCollection[HisokaConfiguration.SelectFieldsQueryAlias],
                                               GetPaging(nameValueCollection));
 
             bindingContext.Result = ModelBindingResult.Success(queryFilter);
@@ -38,10 +39,10 @@ namespace Hisoka.AspNetCore
         {
             var excludeParameters = new[]
             {
-                QueryFilterOptions.OrderByQueryAlias,
-                QueryFilterOptions.PageSizeQueryAlias,
-                QueryFilterOptions.PageNumberQueryAlias,
-                QueryFilterOptions.SelectFieldsQueryAlias
+                HisokaConfiguration.OrderByQueryAlias,
+                HisokaConfiguration.PageSizeQueryAlias,
+                HisokaConfiguration.PageNumberQueryAlias,
+                HisokaConfiguration.SelectFieldsQueryAlias
             };
 
             return string.Join(",", queryString.AllKeys.Where(key => !excludeParameters.Contains(key)).Select(s => $"{s}={queryString[s]}"));
@@ -50,8 +51,8 @@ namespace Hisoka.AspNetCore
         private Paginate GetPaging(NameValueCollection queryString)
         {
             int pageNumber, pageSize;
-            int.TryParse(queryString[QueryFilterOptions.PageNumberQueryAlias], out pageNumber);
-            int.TryParse(queryString[QueryFilterOptions.PageSizeQueryAlias], out pageSize);
+            int.TryParse(queryString[HisokaConfiguration.PageNumberQueryAlias], out pageNumber);
+            int.TryParse(queryString[HisokaConfiguration.PageSizeQueryAlias], out pageSize);
 
             return new Paginate(pageNumber, pageSize);
         }

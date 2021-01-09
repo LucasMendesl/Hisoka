@@ -1,4 +1,6 @@
-﻿namespace Hisoka
+﻿using Hisoka.Configuration;
+
+namespace Hisoka
 {
     /// <summary>
     /// Classe que representa os dados de paginação
@@ -19,7 +21,7 @@
             }
         }
 
-        private int _pageSize = QueryFilterOptions.DefaultPageSize;
+        private int _pageSize = HisokaConfiguration.DefaultPageSize;
 
         /// <summary>
         /// Representa a quantidade de registros por página
@@ -29,7 +31,7 @@
             get { return _pageSize; }
             set
             {
-                if (value <= QueryFilterOptions.MaxPageSize &&
+                if (value <= HisokaConfiguration.MaxPageSize &&
                     value > 0)
                 {
                     _pageSize = value;
