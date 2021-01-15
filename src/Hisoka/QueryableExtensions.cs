@@ -1,7 +1,5 @@
-﻿using System.Threading;
-using Hisoka;
-using System.Reflection;
-using System.Collections;
+﻿using Hisoka;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using System.Collections.Generic;
@@ -115,20 +113,36 @@ namespace System.Linq
         /// <param name="source">fonte de dados</param>
         /// <param name="paginate">parametros referente a paginação</param>
         /// <returns>retorna a consulta paginada</returns>
-        public static IPagedList<T> ToPagedList<T>(this IQueryable<T> source, Paginate paginate)
+        public static IPagedList<T> ToPagedList<T>(this IQueryable source, Paginate paginate)
             where T : class
         {
-            var count = source.Count();
+            var pagedList = source.PageResult(paginate.Offset, paginate.Limit);
+            var data = pagedList.Queryable.ToList<T>();
 
-            var pageNumCount = GetPageNum(count, paginate.Limit, paginate.Offset);
-            var pageNum = pageNumCount > 0 ? pageNumCount - 1 : pageNumCount;
-
-
-            var items = source.Skip(pageNum * paginate.Limit)
-                              .Take(paginate.Limit);
-
-            return new PagedList<T>(items, pageNum, paginate.Limit, count);
+            return new PagedList<T>(data, pagedList.CurrentPage, paginate.Limit, pagedList.RowCount);
         }
+
+
+        /// <summary>
+        /// Método responsável por realizar paginação em uma lista de maneira asincrona
+        /// </summary>
+        /// <typeparam name="T">entidade</typeparam>
+        /// <param name="source">fonte de dados</param>
+        /// <param name="paginate">retorna a lista paginada</param>
+        /// <param name="cancellationToken">token de cancelamento da task</param>
+        /// <returns></returns>
+        public static async Task<IPagedList<T>> ToPagedListAsync<T>(
+            this IQueryable source,
+            Paginate paginate,
+            CancellationToken cancellationToken = default(CancellationToken)
+            ) where T : class
+        {
+            var pagedResult = source.PageResult(paginate.Offset, paginate.Limit);
+            var items = await pagedResult.Queryable.ToListAsync<T>(cancellationToken);
+
+            return new PagedList<T>(items, pagedResult.CurrentPage, paginate.Limit, pagedResult.RowCount);
+        }
+
 
         /// <summary>
         /// Método responsável por realizar paginação em uma lista de maneira asincrona

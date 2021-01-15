@@ -24,9 +24,13 @@ namespace Hisoka
 
             foreach (var filter in filters)
             {
-                var targetType = GetTargetType(filter);
-                var values = ConvertFromStringValues(filter, targetType);
-                var predicate = new FilterQueryParser<TEntity>(filter, GetFormater(targetType));
+                var targetMetadata = GetTargetMetadata(filter);
+
+                if (!targetMetadata.AllowFilter) continue;
+                
+                var targetType = targetMetadata.CurrentProperty;
+                var values = ConvertFromStringValues(filter, targetType.PropertyType);
+                var predicate = new FilterQueryParser<TEntity>(filter, GetFormater(targetType.PropertyType));
 
                 source = source.Where(predicate.ParseValues(values), values);
             }
@@ -42,7 +46,7 @@ namespace Hisoka
             return new GenericQueryFormater();
         }
 
-        private Type GetTargetType(Filter filter)
+        private HisokaPropertyMetadata GetTargetMetadata(Filter filter)
         { 
             var propType = typeof(TEntity);        
             var propArray = filter.PropertyName.Split('.');
@@ -57,19 +61,15 @@ namespace Hisoka
                         propType = propType.GenericTypeArguments[0];
                     else if (propType.IsArray)
                         propType = propType.GetElementType();
-
-                    propertyMetadata = HisokaConfiguration.GetPropertyMetadataFromCache(propType, name);
                 }
 
                 propertyMetadata = HisokaConfiguration.GetPropertyMetadataFromCache(propType, name);
 
                 if (null == propertyMetadata)
                     throw new HisokaException(string.Format("Property '{0}' is not a member of the target entity.", name));
-
-                propType = propertyMetadata.CurrentProperty.PropertyType;
             }
 
-            return propType;
+            return propertyMetadata;
         }
 
         private object[] ConvertFromStringValues(Filter filter, Type targetType)

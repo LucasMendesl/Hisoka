@@ -20,7 +20,7 @@ namespace Hisoka.Configuration
             var property = new HisokaPropertyMetadata((PropertyInfo)expression.ToMemberInfo<TEntity>());
             property.HasAlias(alias);
 
-            HisokaPropertyMap.Add(property.Alias, property);
+            HisokaPropertyMap.Add(alias.ToLower(), property);
             return property;
         }
 

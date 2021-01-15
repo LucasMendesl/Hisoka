@@ -42,7 +42,7 @@ namespace Hisoka
             while (tokens.Count > 0)
             {
                 Token token = tokens.Dequeue();
-                FieldTree field = new FieldTree(token.Value);
+                FieldTree field = new FieldTree(token);
 
                 if (CanAddParent(token))
                 {
@@ -109,20 +109,42 @@ namespace Hisoka
             var cacheKey = typeof(T);            
             var property = HisokaConfiguration.GetPropertyMetadataFromCache(cacheKey, originalToken.Value);
 
-            if (property == null) 
+            if (property != null) 
             {
-                var cache = HisokaConfiguration.GetCache();
-                foreach (var item in cache) 
+                if (!property.AllowProjection) 
                 {
-                    if (item.Value.TryGetValue(originalToken.Value, out var metadata)) 
-                    {
-                        property = metadata;
-                        break;
-                    }
+                    builder.Clear();
+                    return;
+                }
+
+                queue.Enqueue(new Token { Value = property.CurrentProperty.Name, Alias = property.Alias });
+                builder.Clear(); 
+                return;
+            }
+
+            var cache = HisokaConfiguration.GetCache();
+                
+            foreach (var item in cache) 
+            {
+                if (item.Value.TryGetValue(originalToken.Value, out var metadata)) 
+                {
+                    property = metadata;
+                    break;
                 }
             }
 
-            queue.Enqueue(new Token { Value = property.CurrentProperty.Name });
+            if (property == null) 
+            {
+                throw new HisokaException($"Property '{originalToken.Value}' not mapped");
+            }
+
+            if (!property.AllowProjection) 
+            {
+                builder.Clear();
+                return;
+            }
+
+            queue.Enqueue(new Token { Value = property.CurrentProperty.Name, Alias = property.Alias });
             builder.Clear();
         }
     }

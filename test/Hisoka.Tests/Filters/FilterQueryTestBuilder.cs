@@ -31,6 +31,5 @@ namespace Hisoka.Tests.Filters
         {
             return new FilterQuery<T>(filters).Apply(_collection).ToList();
         }
-
     }
 }

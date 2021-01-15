@@ -22,7 +22,7 @@ namespace HisokaExample.Model
             builder.Property(x => x.Role, "perfil");
             builder.Property(x => x.Role.Id, "perfilId");
             builder.Property(x => x.Role.Name, "nome");
-            builder.Property(x => x.Role.Description, "descricao");
+            builder.Property(x => x.Role.Description, "descricao").DenyProjection();
         }       
     }    
 }

@@ -10,7 +10,7 @@ namespace Hisoka
 {
     static class RelfectionExtensions
     {
-        internal static ConcurrentDictionary<Type, bool> InternalPropertyCache = new ConcurrentDictionary<Type, bool>();    
+        private static ConcurrentDictionary<Type, bool> InternalPropertyCache = new ConcurrentDictionary<Type, bool>();    
 
         internal static bool IsEnumerable<TEntity>(this string property)
         {

@@ -17,13 +17,13 @@ namespace HisokaExample.Infrastructure.Repository
             _context = context;
         }
 
-        public async Task<List<object>> GetUsers(ResourceQueryFilter query)
+        public async Task<IPagedList<object>> GetUsers(ResourceQueryFilter query)
         {
             var users = await _context.Users
                     .Include(x => x.UserRoles)
                         .ThenInclude(x => x.Role)
                     .ProjectedQuery(query)
-                    .ToListAsync<object>();
+                    .ToPagedListAsync<object>(query.Paginate);
 
             return users;
         }

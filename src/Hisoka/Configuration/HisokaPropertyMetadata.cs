@@ -20,7 +20,7 @@ namespace Hisoka.Configuration
 
         internal HisokaPropertyMetadata HasAlias(string alias) 
         {
-            Alias = alias.ToLower();
+            Alias = alias;
             return this;
         }
 

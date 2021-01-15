@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Hisoka.Configuration;
 
 namespace Hisoka
@@ -51,7 +50,7 @@ namespace Hisoka
                 }
                 else
                 {
-                    propName = filter.PropertyName;
+                    propName = property.Name;
                     result = formater.FormatPredicate(propName, op, values);
                 }
             }

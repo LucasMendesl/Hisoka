@@ -9,12 +9,15 @@ namespace Hisoka
 
         public FieldType Type { get; private set; }
         public string Name { get; }
+        public string Alias { get; }
+
         public IReadOnlyCollection<FieldTree> Childrens => _childFields.AsReadOnly();
 
-        public FieldTree(string value)
+        public FieldTree(Token token)
             : this(FieldType.Object)
         {
-            Name = value;
+            Name = token.Value;
+            Alias = token.Alias;
         }
 
         private FieldTree(FieldType type)
@@ -51,9 +54,9 @@ namespace Hisoka
         public override string ToString()
         {
             if (!Childrens.Any())
-                return Name;
+                return $"{Name} AS {Alias}";
 
-            return Type == FieldType.Collection ? $"{Name}.Select(new ({string.Join(", ", Childrens.Select(s => s.ToString()))})) AS {Name}" : $"new ({string.Join(", ", Childrens.Select(s => s.ToString().StartsWith("new") ? $"{s}" : $"{Name}.{s}"))}) AS {Name}";
+            return Type == FieldType.Collection ? $"{Name}.Select(new ({string.Join(", ", Childrens.Select(s => s.ToString()))})) AS {Alias}" : $"new ({string.Join(", ", Childrens.Select(s => s.ToString().StartsWith("new") ? $"{s}" : $"{Name}.{s}"))}) AS {Alias}";
         }
     }
 }

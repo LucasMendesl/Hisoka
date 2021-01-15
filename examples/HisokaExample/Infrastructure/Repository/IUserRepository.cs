@@ -6,6 +6,6 @@ namespace HisokaExample.Infrastructure.Repository
 {
     public interface IUserRepository
     {
-         Task<List<object>> GetUsers(ResourceQueryFilter query);
+         Task<IPagedList<object>> GetUsers(ResourceQueryFilter query);
     }
 }
