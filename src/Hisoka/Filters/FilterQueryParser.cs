@@ -22,15 +22,16 @@ namespace Hisoka
 
             var propArray = filter.PropertyName.Split('.');
             var op = filter.Operator;
-            
-            var metadata = HisokaConfiguration.GetPropertyMetadataFromCache(typeof(T), propArray[0]);
+
+            var typeCacheKey = typeof(T); 
+            var metadata = HisokaConfiguration.GetPropertyMetadataFromCache(typeCacheKey, propArray[0]);
             var property = metadata.CurrentProperty;
 
             try
             {
                 if (propArray[0].IsEnumerable<T>())
                 {
-                    if (propArray.Length != 2) 
+                    if (propArray.Length > 2) 
                     {
                         throw new HisokaException("Unsupporter array argument lenght.");
                     }

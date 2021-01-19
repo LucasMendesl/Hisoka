@@ -26,9 +26,17 @@ namespace Hisoka.Configuration
             PageSizeQueryAlias = options.PageSizeQueryAlias;
         }
 
-        internal static IDictionary<Type, Dictionary<string, HisokaPropertyMetadata>> GetCache() 
+        internal static HisokaPropertyMetadata FindPropertyMetadataInCache(string property) 
         {
-            return _hisokaConfigurationCache;
+            foreach (var item in _hisokaConfigurationCache) 
+            {
+                if (item.Value.TryGetValue(property.ToLower(), out var metadata)) 
+                {
+                    return metadata;
+                }
+            }
+
+            return null;
         }
 
         internal static HisokaPropertyMetadata GetPropertyMetadataFromCache(Type cacheStoreKey, string propertyAlias) 

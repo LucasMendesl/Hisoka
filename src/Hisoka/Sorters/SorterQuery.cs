@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Hisoka.Configuration;
 using System.Linq.Dynamic.Core;
 using System.Collections.Generic;
 
@@ -21,17 +20,11 @@ namespace Hisoka
             if (sorts != null && !sorts.Any())
                 return source;
 
-            var cacheKey = typeof(TEntity);
-            var translatedItemList = new List<Sort>(sorts.Count());
-
-            foreach (var sort in sorts) 
-            {
-                var cacheItem = HisokaConfiguration.GetPropertyMetadataFromCache(cacheKey, sort.PropertyName);
-                translatedItemList.Add(new Sort(cacheItem.CurrentProperty.Name, sort.Direction));
-            }
+            var parser = new SorterQueryParser<TEntity>();
+            var translatedItemList = sorts.Select(sort => new Sort(parser.ParseExpression(sort), sort.Direction));
 
             var ordering = string.Join(",", translatedItemList.Select(s => s.ToString()));
             return source.OrderBy(ordering);
         }
-    }
+   }
 }

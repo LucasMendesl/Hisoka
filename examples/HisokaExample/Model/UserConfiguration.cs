@@ -20,9 +20,19 @@ namespace HisokaExample.Model
         {
             builder.Property(x => x.Id);
             builder.Property(x => x.Role, "perfil");
-            builder.Property(x => x.Role.Id, "perfilId");
-            builder.Property(x => x.Role.Name, "nome");
-            builder.Property(x => x.Role.Description, "descricao").DenyProjection();
+            builder.Property(x => x.User, "usuario");
+            builder.Property(x => x.UserId, "usuarioId");
+            builder.Property(x => x.RoleId, "perfilId");
         }       
-    }    
+    }
+
+    public class RoleConfiguration : IHisokaTypeConfiguration<Role>
+    {
+        public void Configure(HisokaTypeConfigurationBuilder<Role> builder)
+        {
+            builder.Property(x => x.Id);
+            builder.Property(x => x.Name, "nome");
+            builder.Property(x => x.Description, "descricao");
+        }
+    }
 }

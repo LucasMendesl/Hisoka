@@ -122,16 +122,7 @@ namespace Hisoka
                 return;
             }
 
-            var cache = HisokaConfiguration.GetCache();
-                
-            foreach (var item in cache) 
-            {
-                if (item.Value.TryGetValue(originalToken.Value, out var metadata)) 
-                {
-                    property = metadata;
-                    break;
-                }
-            }
+            property = HisokaConfiguration.FindPropertyMetadataInCache(originalToken.Value);
 
             if (property == null) 
             {

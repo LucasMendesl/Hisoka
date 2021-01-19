@@ -10,25 +10,23 @@ namespace Hisoka
 {
     static class RelfectionExtensions
     {
-        private static ConcurrentDictionary<Type, bool> InternalPropertyCache = new ConcurrentDictionary<Type, bool>();    
-
         internal static bool IsEnumerable<TEntity>(this string property)
         {
             var currentType = typeof(TEntity);
-
-            if (!InternalPropertyCache.TryGetValue(currentType, out var isEnumerable)) 
+            var metadata = HisokaConfiguration.GetPropertyMetadataFromCache(currentType, property);
+            var prop = metadata?.CurrentProperty;
+            
+            if (prop != null) 
             {
-                var propertyMetadata = HisokaConfiguration.GetPropertyMetadataFromCache(currentType, property);
-                var prop = propertyMetadata.CurrentProperty;
-
-                if (prop == null)
-                    throw new HisokaException(string.Format("Property '{0}' is not a member of the taget entity.", property));
-
-                isEnumerable = prop.PropertyType.IsEnumerableType();
-                InternalPropertyCache.TryAdd(currentType, isEnumerable);
+                return prop.PropertyType.IsEnumerableType();
             }
 
-            return isEnumerable;
+            metadata = HisokaConfiguration.FindPropertyMetadataInCache(property);
+
+            if (metadata == null)
+                throw new HisokaException(string.Format("Property '{0}' is not a member of the taget entity.", property));
+
+            return metadata.CurrentProperty.PropertyType.IsEnumerableType();
         }
 
         internal static bool IsEnumerableType(this Type type)

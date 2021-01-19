@@ -59,7 +59,7 @@ namespace Hisoka
         /// <param name="items">coleção de itens a serem paginados</param>
         /// <param name="pageNumber">numero da página</param>
         /// <param name="pageSize">tamanho da página</param>
-        /// <param name="count">quantidade de registros da coleção</param>
+        /// <param name="totalCount">quantidade de registros da coleção</param>
         public PagedList(IEnumerable<T> items, int pageNumber, int pageSize, int totalCount)
         {
             Data = items.ToList();

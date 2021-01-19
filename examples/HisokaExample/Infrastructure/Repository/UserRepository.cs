@@ -1,10 +1,9 @@
-using System.Collections.Generic;
+using Hisoka;
 using System.Linq;
 using System.Threading.Tasks;
-using Hisoka;
-using HisokaExample.Infrastructure.Context;
-using HisokaExample.Model;
 using Microsoft.EntityFrameworkCore;
+using HisokaExample.Infrastructure.Context;
+
 
 namespace HisokaExample.Infrastructure.Repository
 {
@@ -15,6 +14,17 @@ namespace HisokaExample.Infrastructure.Repository
         public UserRepository(HisokaContext context)
         {
             _context = context;
+        }
+
+        public async Task<IPagedList<object>> GetUserRoles(ResourceQueryFilter query)
+        {
+            var users = await _context.UserRoles
+                .Include(x => x.User)
+                .Include(x => x.Role)
+                .ProjectedQuery(query)
+                .ToPagedListAsync<object>(query.Paginate);
+
+            return users;
         }
 
         public async Task<IPagedList<object>> GetUsers(ResourceQueryFilter query)

@@ -27,7 +27,7 @@ namespace Hisoka.Configuration
         public HisokaPropertyMetadata Property(Expression<Func<TEntity, object>> expression) 
         {
             var property = new HisokaPropertyMetadata((PropertyInfo)expression.ToMemberInfo<TEntity>());
-            HisokaPropertyMap.Add(property.Alias, property);
+            HisokaPropertyMap.Add(property.Alias.ToLower(), property);
 
             return property;
         }

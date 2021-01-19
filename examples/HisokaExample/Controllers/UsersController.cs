@@ -30,5 +30,12 @@ namespace HisokaExample.Controllers
             var users = await _userRepository.GetUsers(query);
             return Ok(users);
         }
+
+        [HttpGet("teste")]
+        public async Task<IActionResult> GetUsersRoles(ResourceQueryFilter query) 
+        {
+            var usrs = await _userRepository.GetUserRoles(query);
+            return Ok(usrs);
+        }
     }
 }

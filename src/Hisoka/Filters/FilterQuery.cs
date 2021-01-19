@@ -67,6 +67,8 @@ namespace Hisoka
 
                 if (null == propertyMetadata)
                     throw new HisokaException(string.Format("Property '{0}' is not a member of the target entity.", name));
+
+                propType = propertyMetadata.CurrentProperty.PropertyType;
             }
 
             return propertyMetadata;
